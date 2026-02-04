@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Saint-Valentin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rose-pale: #ffe4e8;
+            --rose-doux: #ffb3c1;
+            --rose-vif: #ff8fa3;
+            --rouge-profond: #c73866;
+            --blanc-casse: #fffbf7;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, var(--rose-pale) 0%, var(--blanc-casse) 50%, #fff5f7 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            opacity: 0.15;
+            animation: float 8s infinite ease-in-out;
+            font-size: 2rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 3rem 2rem;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: var(--rouge-profond);
+            margin-bottom: 3rem;
+            letter-spacing: 2px;
+            animation: fadeIn 1s ease-in;
+            line-height: 1.3;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+            min-height: 200px;
+            position: relative;
+            width: 100%;
+        }
+
+        button {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(199, 56, 102, 0.2);
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, var(--rouge-profond), var(--rose-vif));
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(199, 56, 102, 0.4);
+        }
+
+        #noBtn {
+            background: white;
+            color: var(--rouge-profond);
+            border: 2px solid var(--rose-doux);
+            transition: all 0.2s ease;
+        }
+
+        #noBtn.moving {
+            position: absolute;
+        }
+
+        #noBtn:hover {
+            background: var(--rose-pale);
+        }
+
+        /* Programme section */
+        .programme {
+            display: none;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .programme h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--rouge-profond);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .surprise-card {
+            background: white;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(199, 56, 102, 0.15);
+            border-left: 5px solid var(--rose-vif);
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .surprise-card:hover {
+            transform: translateX(10px);
+        }
+
+        .surprise-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--rouge-profond);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .surprise-card .time {
+            font-size: 1.1rem;
+            color: var(--rose-vif);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .surprise-card p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .countdown {
+            font-size: 1.2rem;
+            color: var(--rouge-profond);
+            font-weight: 500;
+            margin-top: 0.5rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .revealed {
+            border-left-color: #4CAF50;
+        }
+
+        .locked {
+            opacity: 0.9;
+        }
+
+        .locked .card-content {
+            filter: blur(8px);
+        }
+
+        .heart-icon {
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            button { font-size: 1.1rem; padding: 1rem 2rem; }
+            .buttons { 
+                flex-direction: column; 
+                gap: 1rem;
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-bg" id="heartBg"></div>
+    
+    <div class="container">
+        <div id="question">
+            <h1>Veux-tu être ma Valentine ? 💕</h1>
+            <div class="buttons">
+                <button id="yesBtn">Oui ❤️</button>
+                <button id="noBtn">Non</button>
+            </div>
+        </div>
+
+        <div class="programme" id="programme">
+            <h2>Programme de notre Saint-Valentin <span class="heart-icon">💝</span></h2>
+            
+            <div class="surprise-card locked" id="surprise1">
+                <div class="card-content">
+                    <h3>🌅 Surprise #1 - Le Début</h3>
+                    <div class="time">À 00h00 - Vendredi 14 février</div>
+                    <p>Un site web spécialement créé pour toi, révélant notre journée parfaite ensemble ! 💌</p>
+                </div>
+                <div class="countdown" id="countdown1"></div>
+            </div>
+
+            <div class="surprise-card locked" id="surprise2">
+                <div class="card-content">
+                    <h3>🌷 Surprise #2 - À Midi</h3>
+                    <div class="time">12h00 - Vendredi 14 février</div>
+                    <p>Un magnifique bouquet de tulipes qui t'attend pour illuminer ta journée ! 💐</p>
+                </div>
+                <div class="countdown" id="countdown2"></div>
+            </div>
+
+            <div class="surprise-card locked" id="surprise3">
+                <div class="card-content">
+                    <h3>🍽️ Surprise #3 - L'Après-Midi</h3>
+                    <div class="time">15h00 - Vendredi 14 février</div>
+                    <p>Une invitation surprise : nous allons au restaurant ce soir pour un dîner romantique aux chandelles ! 🕯️✨</p>
+                </div>
+                <div class="countdown" id="countdown3"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        const heartBg = document.getElementById('heartBg');
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = '💕';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+            heartBg.appendChild(heart);
+        }
+
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const question = document.getElementById('question');
+        const programme = document.getElementById('programme');
+
+        // Make "Non" button run away from cursor - much more randomly
+        let isMoving = false;
+        
+        noBtn.addEventListener('mouseover', () => {
+            if (!isMoving) {
+                noBtn.classList.add('moving');
+                isMoving = true;
+            }
+            
+            const container = document.querySelector('.buttons');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Beaucoup plus d'espace pour bouger - toute la zone
+            const maxX = containerRect.width - noBtn.offsetWidth - 10;
+            const maxY = containerRect.height - noBtn.offsetHeight - 10;
+            
+            // Position complètement aléatoire dans toute la zone
+            let randomX, randomY, distance;
+            let attempts = 0;
+            
+            do {
+                randomX = Math.random() * maxX + 100;
+                randomY = Math.random() * maxY + 100;
+                
+                // S'assurer que le bouton se déplace suffisamment loin
+                const currentX = parseFloat(noBtn.style.left) || 0;
+                const currentY = parseFloat(noBtn.style.top) || 0;
+                distance = Math.sqrt(Math.pow(randomX - currentX, 2) + Math.pow(randomY - currentY, 2));
+                
+                attempts++;
+                // Minimum 100px de déplacement pour qu'il soit vraiment aléatoire
+            } while (distance < 100 && maxX > 100 && attempts < 10);
+            
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        });
+
+        // When "Oui" is clicked
+        yesBtn.addEventListener('click', () => {
+            question.style.display = 'none';
+            programme.style.display = 'block';
+            startCountdowns();
+        });
+
+        function startCountdowns() {
+            // Date de la Saint-Valentin 2026
+            const valentineDay = new Date('2026-02-14T00:00:00');
+            const surprise2Time = new Date('2026-02-14T12:00:00');
+            const surprise3Time = new Date('2026-02-14T15:00:00');
+
+            function updateCountdowns() {
+                const now = new Date();
+
+                // Countdown 1
+                updateCountdown(now, valentineDay, 'countdown1', 'surprise1');
+                
+                // Countdown 2
+                updateCountdown(now, surprise2Time, 'countdown2', 'surprise2');
+                
+                // Countdown 3
+                updateCountdown(now, surprise3Time, 'countdown3', 'surprise3');
+            }
+
+            function updateCountdown(now, targetDate, countdownId, cardId) {
+                const diff = targetDate - now;
+                const card = document.getElementById(cardId);
+                const countdownEl = document.getElementById(countdownId);
+
+                if (diff <= 0) {
+                    countdownEl.textContent = '✨ Surprise révélée ! ✨';
+                    card.classList.remove('locked');
+                    card.classList.add('revealed');
+                } else {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    let timeString = '';
+                    if (days > 0) timeString += `${days}j `;
+                    if (hours > 0 || days > 0) timeString += `${hours}h `;
+                    if (minutes > 0 || hours > 0 || days > 0) timeString += `${minutes}min `;
+                    timeString += `${seconds}s`;
+
+                    countdownEl.textContent = `Révélation dans : ${timeString}`;
+                }
+            }
+
+            updateCountdowns();
+            setInterval(updateCountdowns, 1000);
+        }
+    </script>
+</body>
+</html>
