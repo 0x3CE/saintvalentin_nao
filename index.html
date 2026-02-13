@@ -251,7 +251,7 @@
             <div class="surprise-card locked" id="surprise1">
                 <div class="card-content">
                     <h3>🌅 Surprise #1 - Le Début</h3>
-                    <div class="time">À 00h00 - Vendredi 14 février</div>
+                    <div class="time">À 00h00 - Samedi 14 février</div>
                     <p>Un site web spécialement créé pour toi, révélant notre journée parfaite ensemble ! 💌</p>
                 </div>
                 <div class="countdown" id="countdown1"></div>
@@ -260,7 +260,7 @@
             <div class="surprise-card locked" id="surprise2">
                 <div class="card-content">
                     <h3>🌷 Surprise #2 - À Midi</h3>
-                    <div class="time">12h00 - Vendredi 14 février</div>
+                    <div class="time">11h00 - Samedi 14 février</div>
                     <p>Un magnifique bouquet de tulipes qui t'attend pour illuminer ta journée ! 💐</p>
                 </div>
                 <div class="countdown" id="countdown2"></div>
@@ -269,10 +269,19 @@
             <div class="surprise-card locked" id="surprise3">
                 <div class="card-content">
                     <h3>🍽️ Surprise #3 - L'Après-Midi</h3>
-                    <div class="time">15h00 - Vendredi 14 février</div>
-                    <p>Une invitation surprise : nous allons au restaurant ce soir pour un dîner romantique aux chandelles ! 🕯️✨</p>
+                    <div class="time">15h00 - Samedi 14 février</div>
+                    <p>Un magnifique repas avec au menu : Risoto avec ses noix de saint jacques sauté 🕯️✨</p>
                 </div>
                 <div class="countdown" id="countdown3"></div>
+            </div>
+
+            <div class="surprise-card locked" id="surprise4">
+                <div class="card-content">
+                    <h3>🍽️ Surprise #3 - L'Après-Midi</h3>
+                    <div class="time">20h00 - Samedi 14 février</div>
+                    <p>une sacré baise</p>
+                </div>
+                <div class="countdown" id="countdown4"></div>
             </div>
         </div>
     </div>
@@ -343,8 +352,9 @@
         function startCountdowns() {
             // Date de la Saint-Valentin 2026
             const valentineDay = new Date('2026-02-14T00:00:00');
-            const surprise2Time = new Date('2026-02-14T12:00:00');
+            const surprise2Time = new Date('2026-02-14T11:00:00');
             const surprise3Time = new Date('2026-02-14T15:00:00');
+            const surprise4Time = new Date('2026-02-14T20:00:00');
 
             function updateCountdowns() {
                 const now = new Date();
@@ -357,6 +367,8 @@
                 
                 // Countdown 3
                 updateCountdown(now, surprise3Time, 'countdown3', 'surprise3');
+                
+                updateCountdown(now, surprise4Time, 'countdown4', 'surprise4');
             }
 
             function updateCountdown(now, targetDate, countdownId, cardId) {
